@@ -184,3 +184,24 @@ Where is this actually used?
 5.  Shortest Path Algorithms
     Much, much more!
     */
+
+    // Bottom-Up Approach (TABULATION)
+    function coinChange(denominations, value) {
+        // Create an array to store the number of ways to make each amount
+        const dp = Array(value + 1).fill(0);
+        
+        // Base case: there's 1 way to make a value of 0 (by using no coins)
+        dp[0] = 1;
+    
+        // Iterate over each denomination
+        for (let coin of denominations) {
+            // For each denomination, update the number of ways to make each amount
+            for (let amount = coin; amount <= value; amount++) {
+                dp[amount] += dp[amount - coin];
+            }
+        }
+    
+        // The answer is the number of ways to make the 'value' amount
+        return dp[value];
+    }
+    
